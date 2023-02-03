@@ -1,0 +1,25 @@
+﻿@model TowFactorAuthenticationViewModel
+    
+<p>
+   Veuillez entrer le code ci-dessous dans votre application d'authentification.
+</p> 
+<p>
+    @Model.Token
+</p>
+<p>
+    Alternatively, scan the belo QRCode ith your mobile phone.
+</p>
+<div id="qrCode"></div>
+<form method="post">
+    <input hidden asp-for="Token" />
+    <div class="form-group">
+         Entrer le Code: <input type="text" class="form-control" asp-for="Code"  />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section Scripts{
+    <script src="~/js/qrcode.js"></script> 
+    <script type="text/javascript">
+        new QRCode(document.getElementById("qrCode"), "@Model.QRCodeUrl");
+    </script>
+}

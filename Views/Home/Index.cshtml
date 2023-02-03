@@ -1,0 +1,32 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@localizer["WelcometotheE-CareNetplatform"]</h1>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        var twofactor = ViewData["TwoFactorEnabled"];
+        if (twofactor != null && twofactor.ToString().ToLower() == "true")
+        {
+            <a asp-action="RemoveAuthenticator" asp-controller="Account" class="btn btn-warning">Réinitialiser et supprimer l'authentification à deux facteurs</a>
+        }
+        else
+        {
+            <a asp-action="EnableAuthenticator" asp-controller="Account">Configuration de l'authentification à deux facteurs</a>
+        }
+        <br /><br />
+        if (User.IsInRole("Admin"))
+        {
+            <h1>Votre rôle est - Administrateur</h1>
+        }
+        else
+        {
+            <h1>Votre rôle est - Utilisateur</h1>
+        }
+
+    }
+<p>@localizer["LearnMore"]</p>
+</div>
